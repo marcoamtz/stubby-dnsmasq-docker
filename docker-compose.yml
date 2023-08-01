@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  stubby-dnsmasq:
+    container_name: stubby-dnsmasq
+    build:
+      context: "."
+      args:
+        - GETDNS_VERSION=1.7.3
+        - DNSMASQ_VERSION=2.89
+    network_mode: "host"
+    volumes:
+      - "./stubby.yml:/usr/local/etc/stubby/stubby.yml"
+      - "./etc-dnsmasq.d/:/etc/dnsmasq.d"
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
